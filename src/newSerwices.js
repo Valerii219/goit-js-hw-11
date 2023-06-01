@@ -9,13 +9,17 @@ export default class NewServices{
     }
     
     fetchArticles() {
-        console.log(this);
-     return fetch(`${url}?key=${API_KEY}&q=${this.nameInput}&${END_POINT}&per_page=40&page=${this.page}`)
+        const option = {
+            headers: {
+                Authorization: API_KEY,
+            }
+        };
+     return fetch(`${url}?key=${API_KEY}&q=${this.nameInput}&${END_POINT}&per_page=5&page=${this.page}`)
             .then(resp => resp.json())
             .then(data => {
-                
                 this.page +=1;
-                return data.hits
+            
+                    return data.hits;
             })
             .catch((err)=> console.log(err))
      

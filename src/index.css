@@ -1,3 +1,14 @@
-.gallery__image{
+.gallery__image {
+  width: 300px;
+  
+}
+
+.gallery__link{
     width: 500px;
 }
+
+.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }

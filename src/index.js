@@ -1,30 +1,55 @@
 import Notiflix from 'notiflix';
 import NewServices from './newSerwices';
+import LoadButton from './buttonOptions';
 
 const form  = document.querySelector('.search-form');
 const gallary = document.querySelector('.gallery');
-const load = document.querySelector('.js-load');
+const load = document.querySelector('.load-more');
+
+
 
 const newSerwice = new NewServices();
-function onLoad(){
 
-    newSerwice.fetchArticles().then(addMarkupOnPage);
-}
+
+const LoadMoreButton = new LoadButton({
+  selector: '[data-action="load"]',
+  hidden:true,
+  
+})
+console.log(LoadMoreButton);
 
 form.addEventListener('submit', onSearch);
-load.addEventListener('click', onLoad);
+LoadMoreButton.refs.button.addEventListener('click', onLoad);
 
 function onSearch(e){
 e.preventDefault();
 clearContainer()
 newSerwice.query = e.currentTarget.elements.searchQuery.value;
+if(newSerwice.query === ""){
+  return alert('You need to enter certain data')
+}
+// LoadMoreButton.show()
+// LoadMoreButton.disable()
+
+
 newSerwice.resetPage()
-newSerwice.fetchArticles().then(addMarkupOnPage);
+newSerwice.fetchArticles().then(addMarkupOnPage)
+
+
 
 }
 
+function onLoad(){
+
+  newSerwice.fetchArticles().then(addMarkupOnPage);
+}
 function addMarkupOnPage(hits){
-    gallary.insertAdjacentHTML('beforeend',createMarkup(hits));
+    gallary.insertAdjacentHTML('beforeend',createMarkup(hits))
+    if(hits.length === 0){
+      alert("Sorry, there are no images matching your search query. Please try again.");
+        load.hidden = true;
+      
+    }
 }
 
 function clearContainer(){
@@ -57,6 +82,5 @@ function createMarkup(arr){
     </div>
   </div> `).join()
 }
-
 
 
