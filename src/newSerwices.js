@@ -14,7 +14,7 @@ export default class NewServices{
                 Authorization: API_KEY,
             }
         };
-     return fetch(`${url}?key=${API_KEY}&q=${this.nameInput}&${END_POINT}&per_page=5&page=${this.page}`)
+     return fetch(`${url}?key=${API_KEY}&q=${this.nameInput}&${END_POINT}&per_page=3&page=${this.page}`)
             .then(resp => resp.json())
             .then(data => {
                 this.page +=1;

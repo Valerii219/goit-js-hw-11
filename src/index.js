@@ -22,26 +22,34 @@ form.addEventListener('submit', onSearch);
 LoadMoreButton.refs.button.addEventListener('click', onLoad);
 
 function onSearch(e){
+  LoadMoreButton.hide()
 e.preventDefault();
 clearContainer()
 newSerwice.query = e.currentTarget.elements.searchQuery.value;
 if(newSerwice.query === ""){
   return alert('You need to enter certain data')
 }
-// LoadMoreButton.show()
-// LoadMoreButton.disable()
+LoadMoreButton.show();
+LoadMoreButton.disable();
 
 
-newSerwice.resetPage()
-newSerwice.fetchArticles().then(addMarkupOnPage)
-
-
-
+newSerwice.resetPage();
+newSerwice.fetchArticles().then(hits =>
+  {clearContainer();
+    addMarkupOnPage(hits);
+    LoadMoreButton.enable();
+    
+  });
+  
 }
 
 function onLoad(){
-
-  newSerwice.fetchArticles().then(addMarkupOnPage);
+  LoadMoreButton.disable();
+  newSerwice.fetchArticles().then(hits =>
+    {clearContainer();
+      addMarkupOnPage(hits);
+      LoadMoreButton.enable();
+    });
 }
 function addMarkupOnPage(hits){
     gallary.insertAdjacentHTML('beforeend',createMarkup(hits))
