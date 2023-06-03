@@ -9,22 +9,25 @@ export default class NewServices{
     }
     async fetchArticles() {
         const option = {
+            baseURL: 'https://pixabay.com/api',
             headers: {
-                Authorization: API_KEY,
+                'Content-Type': 'application/json'
             }
         }
         try {
-            const resp = await fetch(`${url}?key=${API_KEY}&q=${this.nameInput}&${END_POINT}&per_page=40&page=${this.page}`);
+            const resp = await fetch(`${url}?key=${API_KEY}&q=${this.nameInput}&${END_POINT}&per_page=40&page=${this.page}` );
             const result = await resp.json();
             this.totalHitsResult = result.totalHits;
             this.page +=1;
             if(this.page )
             return result.hits;
             
+            
         } catch (error) {
             console.log(err)
         }
     }
+  
     totalHits(){
         return this.totalHitsResult;
     }
