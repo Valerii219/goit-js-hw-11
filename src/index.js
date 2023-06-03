@@ -37,7 +37,9 @@ newSerwice.fetchArticles().then(hits =>
     addMarkupOnPage(hits);
     LoadMoreButton.enable();
     const totalHits = newSerwice.totalHits();
-    Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    if(newSerwice.totalHits() > 0){
+      Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    }
     lightbox.refresh();
     const { height: cardHeight } = 
     gallery.firstElementChild.getBoundingClientRect();
