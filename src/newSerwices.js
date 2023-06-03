@@ -1,30 +1,33 @@
 const url = 'https://pixabay.com/api';
     const API_KEY = '36861352-2474982a97ff1b570eda1c4c2';
     const END_POINT ='image_type=photo&orientation=horizontal&safesearch=true'
+  
 export default class NewServices{
-   
     constructor() {
         this.nameInput = "";
         this.page = 1;
     }
-    
-    fetchArticles() {
+    async fetchArticles() {
         const option = {
             headers: {
                 Authorization: API_KEY,
             }
-        };
-     return fetch(`${url}?key=${API_KEY}&q=${this.nameInput}&${END_POINT}&per_page=5&page=${this.page}`)
-            .then(resp => resp.json())
-            .then(data => {
-                this.page +=1;
+        }
+        try {
+            const resp = await fetch(`${url}?key=${API_KEY}&q=${this.nameInput}&${END_POINT}&per_page=40&page=${this.page}`);
+            const result = await resp.json();
+            this.totalHitsResult = result.totalHits;
+            this.page +=1;
+            if(this.page )
+            return result.hits;
             
-                    return data.hits;
-            })
-            .catch((err)=> console.log(err))
-     
+        } catch (error) {
+            console.log(err)
+        }
     }
-    
+    totalHits(){
+        return this.totalHitsResult;
+    }
     resetPage(){
         this.page = 1;
     }
