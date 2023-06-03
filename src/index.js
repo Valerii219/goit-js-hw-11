@@ -15,6 +15,7 @@ const newSerwice = new NewServices({
 const LoadMoreButton = new LoadButton({
   selector: '[data-action="load"]',
   hidden:true,
+ 
 })
 
 form.addEventListener('submit', onSearch);
@@ -39,7 +40,7 @@ newSerwice.fetchArticles().then(hits =>
     Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
     lightbox.refresh();
     const { height: cardHeight } = 
-  gallery.firstElementChild.getBoundingClientRect();
+    gallery.firstElementChild.getBoundingClientRect();
 
 window.scrollBy({
   top: cardHeight * 2,
@@ -60,6 +61,7 @@ function addMarkupOnPage(hits){
     if(hits.length === 0){
       Notiflix.Notify.warning("Sorry, there are no images matching your search query. Please try again.");
       LoadMoreButton.hide();
+   
     }
     lightbox.refresh();
 }
