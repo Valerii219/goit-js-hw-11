@@ -21,19 +21,20 @@ export default class NewServices{
         this.page = 1;
         this.totalHitsResult = 0;
         this.totalPagesResult = 0;
+        this.per_page = 40;
     }
     
     async fetchArticles() {
         try {
           const response = await axiosInstance.get(`?key=${API_KEY}&q=${this.nameInput}&${END_POINT}&per_page=40&page=${this.page}`);
           const result = response.data;
-          console.log(result);
           this.totalHitsResult = result.totalHits;
-          this.totalPagesResult = Math.ceil(result.totalHits / 40);
+          this.totalPagesResult = Math.round(result.totalHits / this.per_page);
           this.page += 1;
           if (this.page <= this.totalPagesResult) {
-            console.log(this.totalPagesResult);
-            console.log(this.page);
+            Notiflix.Loading.hourglass(`Please wait`);
+            Notiflix.Loading.remove(1500);
+
           } else {
             LoadMoreButton.hide();
             Notiflix.Notify.info("We're sorry, but you've reached the end of search results")
