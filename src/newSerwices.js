@@ -24,7 +24,7 @@ export default class NewServices{
             
             
         } catch (error) {
-            console.log(err)
+            console.log(error)
         }
     }
   
